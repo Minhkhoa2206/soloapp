@@ -224,10 +224,6 @@ body{
     flex-shrink:0;
 }
 
-
-
-/* LEFT */
-
 .top-left{
 
     display:flex;
@@ -277,10 +273,6 @@ body{
     color:#60a5fa;
 }
 
-
-
-/* CENTER */
-
 .top-center{
 
     flex:1;
@@ -306,10 +298,6 @@ body{
     color:#4ade80;
 }
 
-
-
-/* RIGHT */
-
 .top-right{
 
     display:flex;
@@ -318,11 +306,7 @@ body{
     gap:10px;
 }
 
-.group-select,
 .user{
-
-    border:none;
-    outline:none;
 
     background:
     rgba(255,255,255,.06);
@@ -332,6 +316,8 @@ body{
     padding:11px 14px;
 
     border-radius:14px;
+
+    font-size:14px;
 }
 
 .logout{
@@ -359,7 +345,7 @@ body{
 
 
 
-/* MESSAGES */
+/* MESSAGE */
 
 .messages{
 
@@ -516,8 +502,6 @@ body{
     cursor:pointer;
 
     font-size:20px;
-
-    flex-shrink:0;
 }
 
 .send-input{
@@ -560,8 +544,6 @@ body{
     cursor:pointer;
 
     font-size:18px;
-
-    flex-shrink:0;
 }
 
 
@@ -598,30 +580,9 @@ body{
 
 
 
-/* =========================
-MOBILE OPTIMIZE
-========================= */
+/* MOBILE */
 
 @media(max-width:700px){
-
-    html,
-    body{
-
-        width:100%;
-        height:100%;
-
-        overflow:hidden;
-    }
-
-    .app{
-
-        width:100%;
-        height:100dvh;
-    }
-
-
-
-    /* TOPBAR */
 
     .topbar{
 
@@ -630,18 +591,13 @@ MOBILE OPTIMIZE
         flex-wrap:wrap;
 
         padding:12px;
-
-        gap:12px;
     }
 
     .top-left{
-
         width:100%;
     }
 
     .top-center{
-
-        order:3;
 
         width:100%;
 
@@ -652,179 +608,42 @@ MOBILE OPTIMIZE
 
         width:100%;
 
-        overflow-x:auto;
-
-        padding-bottom:2px;
-
-        gap:8px;
-
-        scrollbar-width:none;
+        justify-content:space-between;
     }
-
-    .top-right::-webkit-scrollbar{
-        display:none;
-    }
-
-    .app-logo{
-
-        width:46px;
-        height:46px;
-
-        font-size:20px;
-    }
-
-    .app-name{
-        font-size:17px;
-    }
-
-    .app-version{
-        font-size:10px;
-    }
-
-    .room-badge{
-
-        width:100%;
-
-        text-align:center;
-    }
-
-
-
-    /* MESSAGE */
 
     .messages{
-
-        flex:1;
 
         padding:12px;
 
         gap:10px;
-
-        overflow-y:auto;
-
-        -webkit-overflow-scrolling:touch;
     }
 
     .msg{
 
         max-width:92%;
-
-        padding:11px 12px;
-
-        border-radius:20px;
     }
-
-    .text{
-
-        font-size:15px;
-
-        line-height:1.5;
-    }
-
-    .chat-image{
-
-        max-width:100%;
-
-        border-radius:14px;
-    }
-
-
-
-    /* BOTTOM */
 
     .bottom{
 
         position:sticky;
 
         bottom:0;
-
-        left:0;
-
-        width:100%;
-
-        padding:10px;
-
-        padding-bottom:
-        calc(
-            env(safe-area-inset-bottom)
-            + 10px
-        );
-
-        background:
-        rgba(15,23,42,.95);
-
-        backdrop-filter:blur(16px);
     }
 
-    .sendbox{
-
-        width:100%;
-
-        align-items:center;
-
-        gap:8px;
-    }
-
-    .image-btn{
+    .image-btn,
+    .send-btn{
 
         width:50px;
         height:50px;
-
-        border-radius:16px;
-
-        font-size:18px;
     }
 
     .send-input{
-
-        min-width:0;
 
         height:50px;
 
         padding:0 14px;
 
-        border-radius:16px;
-
         font-size:16px;
-    }
-
-    .send-btn{
-
-        width:50px;
-        height:50px;
-
-        border-radius:16px;
-
-        font-size:17px;
-    }
-
-
-
-    /* LOGIN */
-
-    .login-box{
-
-        border-radius:28px;
-
-        padding:24px;
-    }
-
-    .login-logo{
-
-        width:82px;
-        height:82px;
-
-        font-size:34px;
-    }
-
-    .login-title{
-
-        font-size:28px;
-    }
-
-    .login-sub{
-
-        font-size:13px;
     }
 
 }
