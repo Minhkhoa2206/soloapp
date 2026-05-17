@@ -326,15 +326,6 @@ MESSAGES
     gap:14px;
 }
 
-.messages::-webkit-scrollbar{
-    width:6px;
-}
-
-.messages::-webkit-scrollbar-thumb{
-    background:#334155;
-    border-radius:10px;
-}
-
 .message-row{
     display:flex;
 }
@@ -352,8 +343,6 @@ MESSAGES
     border-radius:20px;
 
     word-break:break-word;
-
-    animation:fade .2s ease;
 }
 
 .message.mine{
@@ -470,26 +459,6 @@ BOTTOM
 
 
 /* =====================
-ANIMATION
-===================== */
-
-@keyframes fade{
-
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-
-
-/* =====================
 MOBILE
 ===================== */
 
@@ -506,12 +475,6 @@ MOBILE
         overflow-x:auto;
     }
 
-    .group-select,
-    .logout-btn,
-    .user-box{
-        flex-shrink:0;
-    }
-
     .message{
         max-width:90%;
     }
@@ -523,27 +486,6 @@ MOBILE
     .send-btn{
         min-width:52px;
         height:52px;
-    }
-
-}
-
-
-
-/* =====================
-PC
-===================== */
-
-@media(min-width:1000px){
-
-    .app{
-        max-width:1100px;
-        margin:auto;
-
-        border-left:
-        1px solid rgba(255,255,255,.05);
-
-        border-right:
-        1px solid rgba(255,255,255,.05);
     }
 
 }
@@ -718,10 +660,6 @@ from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
 
 
-/* =====================
-FIREBASE
-===================== */
-
 const firebaseConfig = {
 
     apiKey:
@@ -746,6 +684,8 @@ const firebaseConfig = {
     "1:1041836554984:web:da8011543b29b8f47ae75d"
 };
 
+
+
 const app =
 initializeApp(firebaseConfig);
 
@@ -754,19 +694,11 @@ getDatabase(app);
 
 
 
-/* =====================
-ROOM
-===================== */
-
 let room =
 localStorage.getItem("mk_room")
 || "NoiBo";
 
 
-
-/* =====================
-USER
-===================== */
 
 let username =
 localStorage.getItem("mk_username");
@@ -777,10 +709,6 @@ Math.random()
 .slice(2);
 
 
-
-/* =====================
-ELEMENT
-===================== */
 
 const loginPage =
 document.getElementById("loginPage");
@@ -805,10 +733,6 @@ document.getElementById("groupTitle");
 
 
 
-/* =====================
-GROUP
-===================== */
-
 groupSelect.value = room;
 
 groupTitle.innerText =
@@ -817,10 +741,6 @@ groupSelect.selectedIndex
 ].text;
 
 
-
-/* =====================
-AUTO LOGIN
-===================== */
 
 if(username){
 
@@ -844,7 +764,7 @@ window.login = function(){
 
     if(!name){
 
-        alert("Nhập tên đi 😭");
+        alert("Nhập tên 😭");
 
         return;
     }
@@ -881,7 +801,7 @@ window.logout = function(){
 
 
 /* =====================
-CHANGE GROUP
+GROUP
 ===================== */
 
 groupSelect.addEventListener(
@@ -1013,10 +933,6 @@ onChildAdded(
 
 
 
-/* =====================
-ENTER SEND
-===================== */
-
 input.addEventListener(
     "keydown",
     (e)=>{
@@ -1030,10 +946,6 @@ input.addEventListener(
 );
 
 
-
-/* =====================
-SAFE HTML
-===================== */
 
 function escapeHtml(text){
 
