@@ -1,5 +1,7 @@
 /* =========================
-NỘI BỘ CHAT v3.0
+NỘI BỘ CHAT v4.0
+TEXT + IMAGE BASE64
+KHÔNG CẦN STORAGE
 ========================= */
 
 
@@ -36,14 +38,11 @@ firebase.initializeApp({
 
 
 /* =========================
-FIREBASE
+DATABASE
 ========================= */
 
 const db =
 firebase.database();
-
-const storage =
-firebase.storage();
 
 
 
@@ -104,7 +103,7 @@ localStorage.getItem(
 
 
 /* =========================
-USER ID FIX RELOAD
+FIX USER ID RELOAD
 ========================= */
 
 let userId =
@@ -260,6 +259,8 @@ function sendMessage(){
 
     if(!text) return;
 
+
+
     db.ref(
         "rooms/" + room
     ).push({
@@ -274,6 +275,8 @@ function sendMessage(){
 
         time:Date.now()
     });
+
+
 
     messageInput.value = "";
 }
@@ -315,14 +318,14 @@ messageInput.addEventListener(
 
 
 /* =========================
-UPLOAD IMAGE
+UPLOAD IMAGE BASE64
 ========================= */
 
 imageInput.addEventListener(
 
     "change",
 
-    async ()=>{
+    ()=>{
 
         const file =
         imageInput.files[0];
@@ -342,35 +345,34 @@ imageInput.addEventListener(
 
 
 
-        try{
+        /* LIMIT 300KB */
 
-            const fileName =
+        if(
+            file.size >
+            1024 * 300
+        ){
 
-                Date.now()
-                + "_"
-                + file.name;
-
-
-
-            const storageRef =
-
-                storage.ref(
-                    "chat_images/" +
-                    fileName
-                );
-
-
-
-            await storageRef.put(
-                file
+            alert(
+                "Ảnh quá lớn 😭"
             );
 
+            return;
+        }
 
 
-            const imageUrl =
 
-                await storageRef
-                .getDownloadURL();
+        const reader =
+        new FileReader();
+
+
+
+        reader.onload =
+
+        function(e){
+
+            const base64 =
+
+                e.target.result;
 
 
 
@@ -382,27 +384,20 @@ imageInput.addEventListener(
 
                 name:username,
 
-                image:imageUrl,
+                image:base64,
 
                 user:userId,
 
                 time:Date.now()
             });
 
+        };
 
 
-            imageInput.value = "";
 
-        }
-
-        catch(err){
-
-            console.log(err);
-
-            alert(
-                "Upload lỗi 😭"
-            );
-        }
+        reader.readAsDataURL(
+            file
+        );
 
     }
 
@@ -566,11 +561,11 @@ function scrollBottom(){
 
 
 /* =========================
-ONLINE DEBUG
+RUNNING
 ========================= */
 
 console.log(
 
-    "⚡ Nội Bộ Chat v3.0 Running"
+    "⚡ Nội Bộ Chat v4.0 Running"
 
 );
