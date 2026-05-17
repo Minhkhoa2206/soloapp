@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>MK Realtime Chat</title>
+<title>Nội Bộ Chat</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -42,7 +42,7 @@ body{
 }
 
 .logo{
-    font-size:20px;
+    font-size:22px;
     font-weight:700;
 }
 
@@ -55,26 +55,29 @@ body{
 
 .info{
     background:#172554;
-    text-align:center;
     padding:10px;
+    text-align:center;
     font-size:13px;
 }
 
 .messages{
     flex:1;
     overflow-y:auto;
+
     padding:20px;
 
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:14px;
 }
 
 .msg{
     max-width:80%;
     padding:12px 15px;
     border-radius:18px;
+
     animation:fade .2s ease;
+
     word-wrap:break-word;
 }
 
@@ -88,10 +91,17 @@ body{
     align-self:flex-start;
 }
 
+.name{
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+    opacity:.8;
+}
+
 .time{
     font-size:11px;
     opacity:.6;
-    margin-top:5px;
+    margin-top:6px;
 }
 
 .bottom{
@@ -106,6 +116,7 @@ body{
 
 input{
     flex:1;
+
     border:none;
     outline:none;
 
@@ -121,6 +132,7 @@ input{
 
 button{
     border:none;
+
     background:#2563eb;
     color:white;
 
@@ -129,6 +141,7 @@ button{
     border-radius:14px;
 
     font-weight:700;
+
     cursor:pointer;
 
     transition:.2s;
@@ -136,6 +149,45 @@ button{
 
 button:hover{
     transform:scale(1.05);
+}
+
+.login{
+    position:fixed;
+    inset:0;
+
+    background:#020617;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+}
+
+.login-box{
+    width:90%;
+    max-width:350px;
+
+    background:#111827;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.login-title{
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
+}
+
+.login small{
+    opacity:.7;
+    text-align:center;
 }
 
 @keyframes fade{
@@ -149,7 +201,6 @@ button:hover{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 </style>
@@ -157,22 +208,50 @@ button:hover{
 
 <body>
 
+<div class="login" id="loginPage">
+
+    <div class="login-box">
+
+        <div class="login-title">
+            🔐 Nội Bộ
+        </div>
+
+        <small>
+            Nhập tên để tham gia phòng chat
+        </small>
+
+        <input
+            type="text"
+            id="nameInput"
+            placeholder="Tên của bạn..."
+        >
+
+        <button onclick="login()">
+            Vào Chat
+        </button>
+
+    </div>
+
+</div>
+
+
+
 <div class="app">
 
     <div class="topbar">
 
         <div class="logo">
-            ⚡ MK Chat
+            ⚡ Nội Bộ
         </div>
 
-        <div class="room" id="roomText">
-            Room: loading...
+        <div class="room">
+            Phòng: Nội Bộ
         </div>
 
     </div>
 
     <div class="info">
-        Chat realtime đa thiết bị 😏🔥
+        Hệ thống chat realtime nội bộ 😏
     </div>
 
     <div class="messages" id="messages"></div>
@@ -212,9 +291,9 @@ from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
 
 
-// ======================
+// ========================
 // FIREBASE CONFIG
-// ======================
+// ========================
 
 const firebaseConfig = {
 
@@ -237,9 +316,9 @@ const firebaseConfig = {
 
 
 
-// ======================
-// INIT FIREBASE
-// ======================
+// ========================
+// INIT
+// ========================
 
 const app = initializeApp(firebaseConfig);
 
@@ -247,44 +326,37 @@ const db = getDatabase(app);
 
 
 
-// ======================
+// ========================
 // ROOM
-// ======================
+// ========================
 
-let room = localStorage.getItem("mk_room");
-
-if(!room){
-
-    room = prompt(
-        "Nhập tên room:",
-        "phongchung"
-    );
-
-    localStorage.setItem(
-        "mk_room",
-        room
-    );
-}
-
-document.getElementById("roomText")
-.innerText = "Room: " + room;
+const room = "NoiBo";
 
 
 
-// ======================
-// USER ID
-// ======================
+// ========================
+// USER
+// ========================
 
-const myId =
+let username =
+localStorage.getItem("mk_username");
+
+const userId =
 Math.random()
 .toString(36)
 .slice(2);
 
 
 
-// ======================
+// ========================
 // ELEMENT
-// ======================
+// ========================
+
+const loginPage =
+document.getElementById("loginPage");
+
+const nameInput =
+document.getElementById("nameInput");
 
 const messages =
 document.getElementById("messages");
@@ -294,11 +366,57 @@ document.getElementById("messageInput");
 
 
 
-// ======================
+// ========================
+// AUTO LOGIN
+// ========================
+
+if(username){
+
+    loginPage.style.display = "none";
+}
+
+
+
+// ========================
+// LOGIN
+// ========================
+
+window.login = function(){
+
+    const name =
+    nameInput.value.trim();
+
+    if(!name){
+
+        alert("Nhập tên đi 😭");
+
+        return;
+    }
+
+    username = name;
+
+    localStorage.setItem(
+        "mk_username",
+        username
+    );
+
+    loginPage.style.display = "none";
+};
+
+
+
+// ========================
 // SEND MESSAGE
-// ======================
+// ========================
 
 window.sendMessage = function(){
+
+    if(!username){
+
+        alert("Chưa đăng nhập 😭");
+
+        return;
+    }
 
     const text =
     input.value.trim();
@@ -313,9 +431,12 @@ window.sendMessage = function(){
         ),
 
         {
+
+            name: username,
+
             text: text,
 
-            user: myId,
+            user: userId,
 
             time: Date.now()
         }
@@ -327,9 +448,9 @@ window.sendMessage = function(){
 
 
 
-// ======================
+// ========================
 // RECEIVE MESSAGE
-// ======================
+// ========================
 
 onChildAdded(
 
@@ -349,7 +470,7 @@ onChildAdded(
         div.className =
         "msg " +
         (
-            data.user === myId
+            data.user === userId
             ? "mine"
             : "other"
         );
@@ -358,6 +479,10 @@ onChildAdded(
         new Date(data.time);
 
         div.innerHTML = `
+
+            <div class="name">
+                ${escapeHtml(data.name)}
+            </div>
 
             <div>
                 ${escapeHtml(data.text)}
@@ -383,9 +508,9 @@ onChildAdded(
 
 
 
-// ======================
+// ========================
 // ENTER SEND
-// ======================
+// ========================
 
 input.addEventListener(
     "keydown",
@@ -401,9 +526,9 @@ input.addEventListener(
 
 
 
-// ======================
+// ========================
 // SAFE HTML
-// ======================
+// ========================
 
 function escapeHtml(text){
 
