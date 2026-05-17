@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<meta
+name="viewport"
+content="
+width=device-width,
+initial-scale=1,
+viewport-fit=cover
+"
+/>
 
 <title>Nội Bộ Chat</title>
 
@@ -35,6 +44,8 @@ html,body{
 }
 
 body{
+    position:fixed;
+    inset:0;
     color:var(--text);
 }
 
@@ -183,7 +194,7 @@ APP
 
 .app{
     width:100%;
-    height:100vh;
+    height:100dvh;
 
     display:flex;
     flex-direction:column;
@@ -377,6 +388,9 @@ BOTTOM
 
     padding:14px;
 
+    padding-bottom:
+    calc(env(safe-area-inset-bottom) + 12px);
+
     flex-shrink:0;
 }
 
@@ -401,7 +415,7 @@ BOTTOM
 
     border-radius:18px;
 
-    font-size:15px;
+    font-size:16px;
 }
 
 .send-btn{
@@ -484,6 +498,8 @@ MOBILE
 
     .bottom{
         padding:12px;
+        padding-bottom:
+        calc(env(safe-area-inset-bottom) + 10px);
     }
 
     .send-btn{
@@ -538,7 +554,7 @@ PC
         </div>
 
         <div class="login-sub">
-            Hệ thống chat realtime đa thiết bị dành cho nhóm nội bộ 😏
+            Hệ thống chat realtime đa thiết bị 😏
         </div>
 
         <input
@@ -641,10 +657,6 @@ from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
 
 
-// ======================
-// FIREBASE
-// ======================
-
 const firebaseConfig = {
 
     apiKey: "AIzaSyBkRFn4i_tPSFKUMhC_xVWrL2u43gBPLqM",
@@ -664,23 +676,17 @@ const firebaseConfig = {
     "1:1041836554984:web:da8011543b29b8f47ae75d"
 };
 
+
+
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
 
 
-// ======================
-// ROOM
-// ======================
-
 const room = "NoiBo";
 
 
-
-// ======================
-// USER
-// ======================
 
 let username =
 localStorage.getItem("mk_username");
@@ -691,10 +697,6 @@ Math.random()
 .slice(2);
 
 
-
-// ======================
-// ELEMENT
-// ======================
 
 const loginPage =
 document.getElementById("loginPage");
@@ -713,10 +715,6 @@ document.getElementById("messageInput");
 
 
 
-// ======================
-// AUTO LOGIN
-// ======================
-
 if(username){
 
     loginPage.style.display = "none";
@@ -725,10 +723,6 @@ if(username){
 }
 
 
-
-// ======================
-// LOGIN
-// ======================
 
 window.login = function(){
 
@@ -755,10 +749,6 @@ window.login = function(){
 };
 
 
-
-// ======================
-// SEND
-// ======================
 
 window.sendMessage = function(){
 
@@ -798,10 +788,6 @@ window.sendMessage = function(){
 };
 
 
-
-// ======================
-// RECEIVE
-// ======================
 
 onChildAdded(
 
@@ -870,10 +856,6 @@ onChildAdded(
 
 
 
-// ======================
-// ENTER SEND
-// ======================
-
 input.addEventListener(
     "keydown",
     (e)=>{
@@ -887,10 +869,6 @@ input.addEventListener(
 );
 
 
-
-// ======================
-// SAFE HTML
-// ======================
 
 function escapeHtml(text){
 
