@@ -9,11 +9,22 @@ name="viewport"
 content="width=device-width,initial-scale=1,viewport-fit=cover"
 />
 
-<title>Nội Bộ Chat</title>
+<title>Nội Bộ Chat v2.0</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+    --bg:#0f172a;
+    --card:#111827;
+    --card2:#1e293b;
+    --blue:#2563eb;
+    --green:#22c55e;
+    --red:#dc2626;
+    --text:#fff;
+    --sub:#94a3b8;
+}
 
 *{
     margin:0;
@@ -22,49 +33,200 @@ content="width=device-width,initial-scale=1,viewport-fit=cover"
     font-family:Inter,sans-serif;
 }
 
-body{
-    background:#0f172a;
-    color:white;
-    height:100vh;
+html,body{
+    width:100%;
+    height:100%;
     overflow:hidden;
+    background:var(--bg);
 }
 
+body{
+    color:white;
+}
+
+
+
+/* =====================
+APP
+===================== */
+
 .app{
+    width:100%;
     height:100dvh;
+
     display:flex;
     flex-direction:column;
 }
 
-.topbar{
+
+
+/* =====================
+LOGIN
+===================== */
+
+.login{
+
+    position:fixed;
+    inset:0;
+
+    background:
+    linear-gradient(
+        135deg,
+        #020617,
+        #0f172a
+    );
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+
+    padding:20px;
+}
+
+.login-box{
+
+    width:100%;
+    max-width:400px;
+
     background:#111827;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:28px;
+
+    padding:26px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:18px;
+}
+
+.login-logo{
+
+    width:80px;
+    height:80px;
+
+    margin:auto;
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:34px;
+}
+
+.login-title{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+}
+
+.login-sub{
+    text-align:center;
+    color:var(--sub);
+    font-size:14px;
+    line-height:1.5;
+}
+
+.input{
+
+    width:100%;
+
+    border:none;
+    outline:none;
+
+    background:var(--card2);
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    font-size:15px;
+}
+
+.btn{
+
+    border:none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+
+/* =====================
+TOPBAR
+===================== */
+
+.topbar{
+
+    background:#111827;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.05);
+
     padding:14px;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    border-bottom:1px solid #1e293b;
+    gap:10px;
 }
 
 .left{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
 }
 
 .logo{
-    width:42px;
-    height:42px;
 
-    border-radius:14px;
+    width:46px;
+    height:46px;
 
-    background:#2563eb;
+    border-radius:16px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
-    font-size:18px;
+    font-size:20px;
 }
 
 .title{
@@ -72,9 +234,14 @@ body{
     font-weight:700;
 }
 
+.version{
+    font-size:11px;
+    color:#60a5fa;
+}
+
 .status{
     font-size:12px;
-    color:#4ade80;
+    color:var(--green);
 }
 
 .right{
@@ -83,13 +250,12 @@ body{
     gap:8px;
 }
 
-select,
-.user{
-
-    background:#1e293b;
+.group-select{
 
     border:none;
     outline:none;
+
+    background:var(--card2);
 
     color:white;
 
@@ -98,11 +264,28 @@ select,
     border-radius:12px;
 }
 
+.user{
+
+    background:var(--card2);
+
+    padding:10px 12px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    max-width:120px;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
 .logout{
 
     border:none;
 
-    background:#dc2626;
+    background:var(--red);
 
     color:white;
 
@@ -111,7 +294,15 @@ select,
     border-radius:12px;
 
     cursor:pointer;
+
+    font-weight:700;
 }
+
+
+
+/* =====================
+MESSAGES
+===================== */
 
 .messages{
 
@@ -127,6 +318,15 @@ select,
     gap:12px;
 }
 
+.messages::-webkit-scrollbar{
+    width:6px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+    background:#334155;
+    border-radius:10px;
+}
+
 .row{
     display:flex;
 }
@@ -139,15 +339,23 @@ select,
 
     max-width:80%;
 
-    background:#1e293b;
+    background:var(--card2);
 
     padding:12px;
 
     border-radius:18px;
+
+    animation:fade .2s ease;
 }
 
-.me .msg{
-    background:#2563eb;
+.row.me .msg{
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
 }
 
 .name{
@@ -155,22 +363,41 @@ select,
     font-weight:700;
 
     margin-bottom:6px;
+
+    color:#93c5fd;
+}
+
+.text{
+    line-height:1.5;
+    word-break:break-word;
 }
 
 .time{
+    margin-top:6px;
     font-size:11px;
     opacity:.7;
-
-    margin-top:6px;
 }
+
+
+
+/* =====================
+BOTTOM
+===================== */
 
 .bottom{
 
     background:#111827;
 
+    border-top:
+    1px solid rgba(255,255,255,.05);
+
     padding:12px;
 
-    border-top:1px solid #1e293b;
+    padding-bottom:
+    calc(
+        env(safe-area-inset-bottom)
+        + 12px
+    );
 }
 
 .sendbox{
@@ -178,116 +405,76 @@ select,
     gap:10px;
 }
 
-.sendbox input{
+.send-input{
 
     flex:1;
 
     border:none;
     outline:none;
 
-    background:#1e293b;
+    background:var(--card2);
 
     color:white;
 
-    padding:14px;
+    padding:15px;
 
-    border-radius:16px;
+    border-radius:18px;
 
     font-size:15px;
 }
 
-.sendbox button{
+.send-btn{
 
     width:56px;
 
     border:none;
 
-    background:#2563eb;
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
 
     color:white;
 
-    border-radius:16px;
+    border-radius:18px;
 
     cursor:pointer;
+
+    font-size:18px;
 }
 
 
 
-/* LOGIN */
+/* =====================
+ANIMATION
+===================== */
 
-.login{
+@keyframes fade{
 
-    position:fixed;
-    inset:0;
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
 
-    background:#020617;
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    z-index:999;
 }
 
-.login-box{
 
-    width:90%;
-    max-width:380px;
 
-    background:#111827;
-
-    padding:24px;
-
-    border-radius:24px;
-
-    display:flex;
-    flex-direction:column;
-
-    gap:16px;
-}
-
-.login-title{
-    text-align:center;
-    font-size:28px;
-    font-weight:700;
-}
-
-.login-box input{
-
-    border:none;
-    outline:none;
-
-    background:#1e293b;
-
-    color:white;
-
-    padding:15px;
-
-    border-radius:16px;
-}
-
-.login-box button{
-
-    border:none;
-
-    background:#2563eb;
-
-    color:white;
-
-    padding:15px;
-
-    border-radius:16px;
-
-    font-weight:700;
-
-    cursor:pointer;
-}
+/* =====================
+MOBILE
+===================== */
 
 @media(max-width:700px){
 
     .topbar{
         flex-wrap:wrap;
-        gap:10px;
     }
 
     .right{
@@ -314,16 +501,30 @@ select,
 
     <div class="login-box">
 
+        <div class="login-logo">
+            ⚡
+        </div>
+
         <div class="login-title">
-            ⚡ Nội Bộ
+            Nội Bộ
+        </div>
+
+        <div class="login-sub">
+            Hệ thống chat realtime đa thiết bị
+            <br>
+            Version 2.0 😏
         </div>
 
         <input
             id="nameInput"
+            class="input"
             placeholder="Tên của bạn..."
         >
 
-        <button id="loginBtn">
+        <button
+            id="loginBtn"
+            class="btn"
+        >
             Vào Chat
         </button>
 
@@ -347,12 +548,19 @@ select,
 
             <div>
 
-                <div class="title" id="groupTitle">
+                <div class="title">
                     Nội Bộ
                 </div>
 
-                <div class="status">
-                    ● Realtime
+                <div class="version">
+                    Version 2.0
+                </div>
+
+                <div
+                    class="status"
+                    id="groupTitle"
+                >
+                    ● Nội Bộ
                 </div>
 
             </div>
@@ -361,7 +569,10 @@ select,
 
         <div class="right">
 
-            <select id="groupSelect">
+            <select
+                id="groupSelect"
+                class="group-select"
+            >
 
                 <option value="NoiBo">
                     Nội Bộ
@@ -375,15 +586,22 @@ select,
                     Quản Lý
                 </option>
 
+                <option value="Cafe">
+                    Cafe
+                </option>
+
             </select>
 
-            <div class="user" id="userBox">
+            <div
+                id="userBox"
+                class="user"
+            >
                 Khách
             </div>
 
             <button
-                class="logout"
                 id="logoutBtn"
+                class="logout"
             >
                 Thoát
             </button>
@@ -395,8 +613,8 @@ select,
 
 
     <div
-        class="messages"
         id="messages"
+        class="messages"
     ></div>
 
 
@@ -407,10 +625,14 @@ select,
 
             <input
                 id="messageInput"
+                class="send-input"
                 placeholder="Nhập tin nhắn..."
             >
 
-            <button id="sendBtn">
+            <button
+                id="sendBtn"
+                class="send-btn"
+            >
                 ➤
             </button>
 
@@ -432,7 +654,9 @@ select,
 
 <script>
 
-/* FIREBASE */
+/* =====================
+FIREBASE
+===================== */
 
 firebase.initializeApp({
 
@@ -464,7 +688,9 @@ firebase.database();
 
 
 
-/* ELEMENT */
+/* =====================
+ELEMENT
+===================== */
 
 const loginPage =
 document.getElementById("loginPage");
@@ -498,7 +724,9 @@ document.getElementById("groupTitle");
 
 
 
-/* USER */
+/* =====================
+DATA
+===================== */
 
 let username =
 localStorage.getItem("mk_username");
@@ -508,15 +736,20 @@ localStorage.getItem("mk_room")
 || "NoiBo";
 
 const userId =
-Math.random().toString(36).slice(2);
+Math.random()
+.toString(36)
+.slice(2);
 
 
 
-/* INIT */
+/* =====================
+INIT
+===================== */
 
 groupSelect.value = room;
 
-groupTitle.innerText =
+groupTitle.innerHTML =
+"● " +
 groupSelect.options[
 groupSelect.selectedIndex
 ].text;
@@ -532,70 +765,96 @@ if(username){
 
 
 
-/* LOGIN */
+/* =====================
+LOGIN
+===================== */
 
-loginBtn.onclick = ()=>{
+loginBtn.addEventListener(
 
-    const name =
-    nameInput.value.trim();
+    "click",
 
-    if(!name){
+    ()=>{
 
-        alert("Nhập tên 😭");
+        const name =
+        nameInput.value.trim();
 
-        return;
+        if(!name){
+
+            alert("Nhập tên 😭");
+
+            return;
+        }
+
+        username = name;
+
+        localStorage.setItem(
+            "mk_username",
+            username
+        );
+
+        userBox.innerText =
+        username;
+
+        loginPage.style.display =
+        "none";
     }
 
-    username = name;
-
-    localStorage.setItem(
-        "mk_username",
-        username
-    );
-
-    userBox.innerText =
-    username;
-
-    loginPage.style.display =
-    "none";
-};
+);
 
 
 
-/* LOGOUT */
+/* =====================
+LOGOUT
+===================== */
 
-logoutBtn.onclick = ()=>{
+logoutBtn.addEventListener(
 
-    localStorage.removeItem(
-        "mk_username"
-    );
+    "click",
 
-    location.reload();
-};
+    ()=>{
 
+        localStorage.removeItem(
+            "mk_username"
+        );
 
+        location.reload();
+    }
 
-/* GROUP */
-
-groupSelect.onchange = ()=>{
-
-    localStorage.setItem(
-        "mk_room",
-        groupSelect.value
-    );
-
-    location.reload();
-};
+);
 
 
 
-/* SEND */
+/* =====================
+GROUP
+===================== */
+
+groupSelect.addEventListener(
+
+    "change",
+
+    ()=>{
+
+        localStorage.setItem(
+            "mk_room",
+            groupSelect.value
+        );
+
+        location.reload();
+    }
+
+);
+
+
+
+/* =====================
+SEND
+===================== */
 
 function sendMessage(){
 
     if(!username){
 
-        alert("Đăng nhập đi 😭");
+        alert("Đăng nhập 😭");
 
         return;
     }
@@ -621,11 +880,15 @@ function sendMessage(){
     messageInput.value = "";
 }
 
-sendBtn.onclick =
-sendMessage;
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
 
 messageInput.addEventListener(
+
     "keydown",
+
     (e)=>{
 
         if(e.key === "Enter"){
@@ -634,11 +897,14 @@ messageInput.addEventListener(
         }
 
     }
+
 );
 
 
 
-/* RECEIVE */
+/* =====================
+RECEIVE
+===================== */
 
 db.ref(
     "rooms/" + room
@@ -673,7 +939,7 @@ db.ref(
                     ${safe(data.name)}
                 </div>
 
-                <div>
+                <div class="text">
                     ${safe(data.text)}
                 </div>
 
@@ -695,15 +961,21 @@ db.ref(
         messages.scrollTop =
         messages.scrollHeight;
     }
+
 );
 
 
+
+/* =====================
+SAFE HTML
+===================== */
 
 function safe(text){
 
     return text
 
     .replace(/</g,"&lt;")
+
     .replace(/>/g,"&gt;");
 }
 
@@ -711,5 +983,3 @@ function safe(text){
 
 </body>
 </html>
-
-V1
