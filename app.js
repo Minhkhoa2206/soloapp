@@ -1,27 +1,43 @@
+/* =========================
+NỘI BỘ CHAT v3.0
+========================= */
+
+
+
+/* =========================
+FIREBASE CONFIG
+========================= */
+
 firebase.initializeApp({
 
     apiKey:
-    "YOUR_API_KEY",
+    "AIzaSyBkRFn4i_tPSFKUMhC_xVWrL2u43gBPLqM",
 
     authDomain:
-    "YOUR_DOMAIN",
+    "vercel-mk.firebaseapp.com",
 
     databaseURL:
-    "YOUR_DATABASE_URL",
+    "https://vercel-mk-default-rtdb.asia-southeast1.firebasedatabase.app",
 
     projectId:
-    "YOUR_PROJECT_ID",
+    "vercel-mk",
 
     storageBucket:
-    "YOUR_STORAGE_BUCKET",
+    "vercel-mk.firebasestorage.app",
 
     messagingSenderId:
-    "YOUR_SENDER_ID",
+    "1041836554984",
 
     appId:
-    "YOUR_APP_ID"
+    "1:1041836554984:web:da8011543b29b8f47ae75d"
 
 });
+
+
+
+/* =========================
+FIREBASE
+========================= */
 
 const db =
 firebase.database();
@@ -30,6 +46,10 @@ const storage =
 firebase.storage();
 
 
+
+/* =========================
+ELEMENT
+========================= */
 
 const loginPage =
 document.getElementById("loginPage");
@@ -66,17 +86,31 @@ document.getElementById("imageInput");
 
 
 
+/* =========================
+DATA
+========================= */
+
 let username =
-localStorage.getItem("mk_username");
+localStorage.getItem(
+    "mk_username"
+);
 
 let room =
-localStorage.getItem("mk_room")
+localStorage.getItem(
+    "mk_room"
+)
 || "NoiBo";
 
 
 
+/* =========================
+USER ID FIX RELOAD
+========================= */
+
 let userId =
-localStorage.getItem("mk_user_id");
+localStorage.getItem(
+    "mk_user_id"
+);
 
 if(!userId){
 
@@ -93,15 +127,20 @@ if(!userId){
 
 
 
-/* INIT */
+/* =========================
+INIT
+========================= */
 
-groupSelect.value = room;
+groupSelect.value =
+room;
 
 groupTitle.innerHTML =
 "● " +
 groupSelect.options[
 groupSelect.selectedIndex
 ].text;
+
+
 
 if(username){
 
@@ -114,7 +153,9 @@ if(username){
 
 
 
-/* LOGIN */
+/* =========================
+LOGIN
+========================= */
 
 loginBtn.addEventListener(
 
@@ -127,7 +168,9 @@ loginBtn.addEventListener(
 
         if(!name){
 
-            alert("Nhập tên 😭");
+            alert(
+                "Nhập tên 😭"
+            );
 
             return;
         }
@@ -150,7 +193,9 @@ loginBtn.addEventListener(
 
 
 
-/* LOGOUT */
+/* =========================
+LOGOUT
+========================= */
 
 logoutBtn.addEventListener(
 
@@ -173,7 +218,9 @@ logoutBtn.addEventListener(
 
 
 
-/* GROUP */
+/* =========================
+CHANGE GROUP
+========================= */
 
 groupSelect.addEventListener(
 
@@ -193,13 +240,17 @@ groupSelect.addEventListener(
 
 
 
-/* SEND */
+/* =========================
+SEND TEXT
+========================= */
 
 function sendMessage(){
 
     if(!username){
 
-        alert("Đăng nhập 😭");
+        alert(
+            "Đăng nhập 😭"
+        );
 
         return;
     }
@@ -213,6 +264,8 @@ function sendMessage(){
         "rooms/" + room
     ).push({
 
+        type:"text",
+
         name:username,
 
         text:text,
@@ -225,10 +278,22 @@ function sendMessage(){
     messageInput.value = "";
 }
 
+
+
+/* =========================
+SEND BUTTON
+========================= */
+
 sendBtn.addEventListener(
     "click",
     sendMessage
 );
+
+
+
+/* =========================
+ENTER SEND
+========================= */
 
 messageInput.addEventListener(
 
@@ -236,7 +301,9 @@ messageInput.addEventListener(
 
     (e)=>{
 
-        if(e.key === "Enter"){
+        if(
+            e.key === "Enter"
+        ){
 
             sendMessage();
         }
@@ -247,7 +314,9 @@ messageInput.addEventListener(
 
 
 
-/* IMAGE */
+/* =========================
+UPLOAD IMAGE
+========================= */
 
 imageInput.addEventListener(
 
@@ -260,34 +329,80 @@ imageInput.addEventListener(
 
         if(!file) return;
 
-        const fileName =
-        Date.now() +
-        "_" +
-        file.name;
 
-        const storageRef =
-        storage.ref(
-            "chat_images/" +
-            fileName
-        );
 
-        await storageRef.put(file);
+        if(!username){
 
-        const imageUrl =
-        await storageRef.getDownloadURL();
+            alert(
+                "Đăng nhập 😭"
+            );
 
-        db.ref(
-            "rooms/" + room
-        ).push({
+            return;
+        }
 
-            name:username,
 
-            image:imageUrl,
 
-            user:userId,
+        try{
 
-            time:Date.now()
-        });
+            const fileName =
+
+                Date.now()
+                + "_"
+                + file.name;
+
+
+
+            const storageRef =
+
+                storage.ref(
+                    "chat_images/" +
+                    fileName
+                );
+
+
+
+            await storageRef.put(
+                file
+            );
+
+
+
+            const imageUrl =
+
+                await storageRef
+                .getDownloadURL();
+
+
+
+            db.ref(
+                "rooms/" + room
+            ).push({
+
+                type:"image",
+
+                name:username,
+
+                image:imageUrl,
+
+                user:userId,
+
+                time:Date.now()
+            });
+
+
+
+            imageInput.value = "";
+
+        }
+
+        catch(err){
+
+            console.log(err);
+
+            alert(
+                "Upload lỗi 😭"
+            );
+        }
 
     }
 
@@ -295,7 +410,9 @@ imageInput.addEventListener(
 
 
 
-/* RECEIVE */
+/* =========================
+RECEIVE MESSAGE
+========================= */
 
 db.ref(
     "rooms/" + room
@@ -308,52 +425,83 @@ db.ref(
         const data =
         snapshot.val();
 
+
+
         const row =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
+
 
         row.className =
-        "row " +
-        (
-            data.user === userId
-            ? "me"
-            : ""
-        );
+
+            "row " +
+
+            (
+                data.user === userId
+                ? "me"
+                : ""
+            );
+
+
 
         const date =
         new Date(data.time);
+
+
 
         row.innerHTML = `
 
             <div class="msg">
 
                 <div class="name">
+
                     ${safe(data.name)}
+
                 </div>
+
+
 
                 ${
                     data.text
                     ?
                     `
                     <div class="text">
+
                         ${safe(data.text)}
+
                     </div>
                     `
                     :
                     ""
                 }
 
+
+
                 ${
                     data.image
                     ?
                     `
                     <img
+
                         src="${data.image}"
+
                         class="chat-image"
+
+                        onclick="
+                            window.open(
+                                '${data.image}',
+                                '_blank'
+                            )
+                        "
                     >
                     `
                     :
                     ""
                 }
+
+
 
                 <div class="time">
 
@@ -368,21 +516,61 @@ db.ref(
 
         `;
 
-        messages.appendChild(row);
+
+
+        messages.appendChild(
+            row
+        );
+
+
 
         messages.scrollTop =
-        messages.scrollHeight;
+
+            messages.scrollHeight;
     }
 
 );
 
 
 
+/* =========================
+SAFE HTML
+========================= */
+
 function safe(text){
 
-    return text
+    return String(text)
+
+    .replace(/&/g,"&amp;")
 
     .replace(/</g,"&lt;")
 
-    .replace(/>/g,"&gt;");
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;");
 }
+
+
+
+/* =========================
+AUTO SCROLL
+========================= */
+
+function scrollBottom(){
+
+    messages.scrollTop =
+
+        messages.scrollHeight;
+}
+
+
+
+/* =========================
+ONLINE DEBUG
+========================= */
+
+console.log(
+
+    "⚡ Nội Bộ Chat v3.0 Running"
+
+);
