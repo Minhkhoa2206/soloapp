@@ -523,7 +523,7 @@ MOBILE
 
         <button
             class="btn"
-            onclick="login()"
+            id="loginBtn"
         >
             Vào Chat
         </button>
@@ -599,7 +599,7 @@ MOBILE
 
             <button
                 class="logout-btn"
-                onclick="logout()"
+                id="logoutBtn"
             >
                 Thoát
             </button>
@@ -630,7 +630,7 @@ MOBILE
 
             <button
                 class="send-btn"
-                onclick="sendMessage()"
+                id="sendBtn"
             >
                 ➤
             </button>
@@ -731,6 +731,15 @@ document.getElementById("groupSelect");
 const groupTitle =
 document.getElementById("groupTitle");
 
+const loginBtn =
+document.getElementById("loginBtn");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const sendBtn =
+document.getElementById("sendBtn");
+
 
 
 groupSelect.value = room;
@@ -757,7 +766,7 @@ if(username){
 LOGIN
 ===================== */
 
-window.login = function(){
+function login(){
 
     const name =
     nameInput.value.trim();
@@ -781,7 +790,7 @@ window.login = function(){
 
     loginPage.style.display =
     "none";
-};
+}
 
 
 
@@ -789,14 +798,14 @@ window.login = function(){
 LOGOUT
 ===================== */
 
-window.logout = function(){
+function logout(){
 
     localStorage.removeItem(
         "mk_username"
     );
 
     location.reload();
-};
+}
 
 
 
@@ -823,7 +832,7 @@ groupSelect.addEventListener(
 SEND
 ===================== */
 
-window.sendMessage = function(){
+function sendMessage(){
 
     if(!username){
 
@@ -858,7 +867,7 @@ window.sendMessage = function(){
     );
 
     input.value = "";
-};
+}
 
 
 
@@ -933,6 +942,25 @@ onChildAdded(
 
 
 
+/* =====================
+EVENT
+===================== */
+
+loginBtn.addEventListener(
+    "click",
+    login
+);
+
+logoutBtn.addEventListener(
+    "click",
+    logout
+);
+
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
+
 input.addEventListener(
     "keydown",
     (e)=>{
@@ -946,6 +974,10 @@ input.addEventListener(
 );
 
 
+
+/* =====================
+SAFE HTML
+===================== */
 
 function escapeHtml(text){
 
