@@ -569,3 +569,46 @@ console.log(
     "⚡ Nội Bộ Chat v4.0 Running"
 
 );
+
+
+/* =========================
+IMAGE VIEWER
+========================= */
+
+const imageViewer =
+
+document.getElementById(
+    "imageViewer"
+);
+
+const viewerImage =
+
+document.getElementById(
+    "viewerImage"
+);
+
+
+
+window.openImageViewer =
+
+function(src){
+
+    viewerImage.src = src;
+
+    imageViewer.style.display =
+    "flex";
+};
+
+
+
+imageViewer.addEventListener(
+
+    "click",
+
+    ()=>{
+
+        imageViewer.style.display =
+        "none";
+    }
+
+);
