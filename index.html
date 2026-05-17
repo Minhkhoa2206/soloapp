@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 
 <meta
 name="viewport"
@@ -24,8 +24,8 @@ viewport-fit=cover
     --card:#111827;
     --card2:#1e293b;
     --blue:#2563eb;
-    --line:#334155;
-    --text:#ffffff;
+    --red:#dc2626;
+    --text:#fff;
     --sub:#94a3b8;
 }
 
@@ -39,8 +39,8 @@ viewport-fit=cover
 html,body{
     width:100%;
     height:100%;
-    background:var(--bg);
     overflow:hidden;
+    background:var(--bg);
 }
 
 body{
@@ -51,9 +51,9 @@ body{
 
 
 
-/* =========================
+/* =====================
 LOGIN
-========================= */
+===================== */
 
 .login{
     position:fixed;
@@ -79,9 +79,7 @@ LOGIN
     width:100%;
     max-width:420px;
 
-    background:rgba(17,24,39,.95);
-
-    backdrop-filter:blur(10px);
+    background:rgba(17,24,39,.96);
 
     border:1px solid rgba(255,255,255,.05);
 
@@ -89,17 +87,17 @@ LOGIN
 
     padding:28px;
 
-    box-shadow:
-    0 10px 40px rgba(0,0,0,.4);
-
     display:flex;
     flex-direction:column;
     gap:18px;
 }
 
 .login-logo{
+
     width:80px;
     height:80px;
+
+    margin:auto;
 
     border-radius:24px;
 
@@ -115,8 +113,6 @@ LOGIN
     justify-content:center;
 
     font-size:34px;
-
-    margin:auto;
 }
 
 .login-title{
@@ -133,30 +129,25 @@ LOGIN
 }
 
 .input{
+
     width:100%;
+
+    border:none;
+    outline:none;
 
     background:var(--card2);
 
-    border:1px solid transparent;
-
     color:white;
 
-    padding:15px 16px;
+    padding:15px;
 
     border-radius:16px;
 
-    outline:none;
-
     font-size:15px;
-
-    transition:.2s;
-}
-
-.input:focus{
-    border-color:#2563eb;
 }
 
 .btn{
+
     border:none;
     outline:none;
 
@@ -169,28 +160,21 @@ LOGIN
 
     color:white;
 
-    font-weight:700;
-
     padding:15px;
 
     border-radius:16px;
 
-    cursor:pointer;
-
     font-size:15px;
+    font-weight:700;
 
-    transition:.2s;
-}
-
-.btn:hover{
-    transform:translateY(-2px);
+    cursor:pointer;
 }
 
 
 
-/* =========================
+/* =====================
 APP
-========================= */
+===================== */
 
 .app{
     width:100%;
@@ -202,27 +186,25 @@ APP
 
 
 
-/* =========================
+/* =====================
 TOPBAR
-========================= */
+===================== */
 
 .topbar{
 
     height:72px;
 
-    background:rgba(17,24,39,.95);
-
-    backdrop-filter:blur(10px);
+    background:rgba(17,24,39,.96);
 
     border-bottom:1px solid rgba(255,255,255,.05);
 
-    padding:0 18px;
+    padding:0 14px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
 
-    flex-shrink:0;
+    gap:10px;
 }
 
 .top-left{
@@ -242,7 +224,7 @@ TOPBAR
     linear-gradient(
         135deg,
         #2563eb,
-        #1e40af
+        #1d4ed8
     );
 
     display:flex;
@@ -263,32 +245,72 @@ TOPBAR
 }
 
 .chat-status{
-    font-size:13px;
+    font-size:12px;
     color:#4ade80;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.group-select{
+
+    background:var(--card2);
+
+    border:none;
+    outline:none;
+
+    color:white;
+
+    padding:10px 12px;
+
+    border-radius:12px;
+
+    font-size:13px;
 }
 
 .user-box{
 
     background:var(--card2);
 
-    padding:10px 14px;
+    padding:10px 12px;
 
-    border-radius:14px;
+    border-radius:12px;
 
     font-size:13px;
-    color:#cbd5e1;
 
-    max-width:150px;
+    max-width:120px;
+
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
 }
 
+.logout-btn{
+
+    border:none;
+
+    background:var(--red);
+
+    color:white;
+
+    padding:10px 12px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:13px;
+    font-weight:700;
+}
 
 
-/* =========================
+
+/* =====================
 MESSAGES
-========================= */
+===================== */
 
 .messages{
 
@@ -302,8 +324,6 @@ MESSAGES
     flex-direction:column;
 
     gap:14px;
-
-    scroll-behavior:smooth;
 }
 
 .messages::-webkit-scrollbar{
@@ -325,18 +345,19 @@ MESSAGES
 
 .message{
 
-    max-width:min(75%, 420px);
+    max-width:min(80%,420px);
 
     padding:12px 14px;
 
     border-radius:20px;
 
-    animation:fade .2s ease;
-
     word-break:break-word;
+
+    animation:fade .2s ease;
 }
 
 .message.mine{
+
     background:
     linear-gradient(
         135deg,
@@ -348,11 +369,14 @@ MESSAGES
 }
 
 .message.other{
+
     background:var(--card2);
+
     border-bottom-left-radius:6px;
 }
 
 .message-name{
+
     font-size:13px;
     font-weight:700;
 
@@ -367,51 +391,53 @@ MESSAGES
 }
 
 .message-time{
+
     margin-top:7px;
+
     font-size:11px;
-    opacity:.65;
+
+    opacity:.7;
 }
 
 
 
-/* =========================
+/* =====================
 BOTTOM
-========================= */
+===================== */
 
 .bottom{
 
-    background:rgba(17,24,39,.95);
-
-    backdrop-filter:blur(10px);
+    background:rgba(17,24,39,.96);
 
     border-top:1px solid rgba(255,255,255,.05);
 
     padding:14px;
 
     padding-bottom:
-    calc(env(safe-area-inset-bottom) + 12px);
-
-    flex-shrink:0;
+    calc(
+        env(safe-area-inset-bottom)
+        + 12px
+    );
 }
 
 .send-box{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:10px;
 }
 
 .send-input{
 
     flex:1;
 
-    background:var(--card2);
-
     border:none;
     outline:none;
 
+    background:var(--card2);
+
     color:white;
 
-    padding:15px 18px;
+    padding:15px;
 
     border-radius:18px;
 
@@ -439,19 +465,13 @@ BOTTOM
     font-size:18px;
 
     cursor:pointer;
-
-    transition:.2s;
-}
-
-.send-btn:hover{
-    transform:scale(1.05);
 }
 
 
 
-/* =========================
+/* =====================
 ANIMATION
-========================= */
+===================== */
 
 @keyframes fade{
 
@@ -464,42 +484,40 @@ ANIMATION
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 
 
-/* =========================
+/* =====================
 MOBILE
-========================= */
+===================== */
 
 @media(max-width:700px){
 
     .topbar{
-        height:66px;
-        padding:0 12px;
+        height:auto;
+        padding:12px;
+        flex-wrap:wrap;
     }
 
-    .avatar{
-        width:42px;
-        height:42px;
+    .top-right{
+        width:100%;
+        overflow-x:auto;
     }
 
-    .chat-title{
-        font-size:16px;
+    .group-select,
+    .logout-btn,
+    .user-box{
+        flex-shrink:0;
     }
 
     .message{
-        max-width:88%;
+        max-width:90%;
     }
 
     .messages{
         padding:14px;
-    }
-
-    .bottom{
-        padding:12px;
-        padding-bottom:
-        calc(env(safe-area-inset-bottom) + 10px);
     }
 
     .send-btn{
@@ -507,18 +525,13 @@ MOBILE
         height:52px;
     }
 
-    .user-box{
-        max-width:100px;
-        font-size:12px;
-    }
-
 }
 
 
 
-/* =========================
+/* =====================
 PC
-========================= */
+===================== */
 
 @media(min-width:1000px){
 
@@ -526,8 +539,11 @@ PC
         max-width:1100px;
         margin:auto;
 
-        border-left:1px solid rgba(255,255,255,.05);
-        border-right:1px solid rgba(255,255,255,.05);
+        border-left:
+        1px solid rgba(255,255,255,.05);
+
+        border-right:
+        1px solid rgba(255,255,255,.05);
     }
 
 }
@@ -576,6 +592,8 @@ PC
 
 
 
+
+
 <!-- APP -->
 
 <div class="app">
@@ -590,7 +608,10 @@ PC
 
             <div class="chat-info">
 
-                <div class="chat-title">
+                <div
+                    class="chat-title"
+                    id="groupTitle"
+                >
                     Nội Bộ
                 </div>
 
@@ -602,15 +623,55 @@ PC
 
         </div>
 
-        <div class="user-box" id="userBox">
-            Chưa đăng nhập
+        <div class="top-right">
+
+            <select
+                class="group-select"
+                id="groupSelect"
+            >
+
+                <option value="NoiBo">
+                    Nội Bộ
+                </option>
+
+                <option value="KyThuat">
+                    Kỹ Thuật
+                </option>
+
+                <option value="QuanLy">
+                    Quản Lý
+                </option>
+
+                <option value="Cafe">
+                    Cafe
+                </option>
+
+            </select>
+
+            <div
+                class="user-box"
+                id="userBox"
+            >
+                Chưa đăng nhập
+            </div>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Thoát
+            </button>
+
         </div>
 
     </div>
 
 
 
-    <div class="messages" id="messages"></div>
+    <div
+        class="messages"
+        id="messages"
+    ></div>
 
 
 
@@ -657,36 +718,55 @@ from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
 
 
 
+/* =====================
+FIREBASE
+===================== */
+
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBkRFn4i_tPSFKUMhC_xVWrL2u43gBPLqM",
+    apiKey:
+    "AIzaSyBkRFn4i_tPSFKUMhC_xVWrL2u43gBPLqM",
 
-    authDomain: "vercel-mk.firebaseapp.com",
+    authDomain:
+    "vercel-mk.firebaseapp.com",
 
     databaseURL:
     "https://vercel-mk-default-rtdb.asia-southeast1.firebasedatabase.app",
 
-    projectId: "vercel-mk",
+    projectId:
+    "vercel-mk",
 
-    storageBucket: "vercel-mk.firebasestorage.app",
+    storageBucket:
+    "vercel-mk.firebasestorage.app",
 
-    messagingSenderId: "1041836554984",
+    messagingSenderId:
+    "1041836554984",
 
     appId:
     "1:1041836554984:web:da8011543b29b8f47ae75d"
 };
 
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getDatabase(app);
 
 
-const app = initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
+/* =====================
+ROOM
+===================== */
+
+let room =
+localStorage.getItem("mk_room")
+|| "NoiBo";
 
 
 
-const room = "NoiBo";
-
-
+/* =====================
+USER
+===================== */
 
 let username =
 localStorage.getItem("mk_username");
@@ -697,6 +777,10 @@ Math.random()
 .slice(2);
 
 
+
+/* =====================
+ELEMENT
+===================== */
 
 const loginPage =
 document.getElementById("loginPage");
@@ -713,16 +797,45 @@ document.getElementById("messages");
 const input =
 document.getElementById("messageInput");
 
+const groupSelect =
+document.getElementById("groupSelect");
 
+const groupTitle =
+document.getElementById("groupTitle");
+
+
+
+/* =====================
+GROUP
+===================== */
+
+groupSelect.value = room;
+
+groupTitle.innerText =
+groupSelect.options[
+groupSelect.selectedIndex
+].text;
+
+
+
+/* =====================
+AUTO LOGIN
+===================== */
 
 if(username){
 
-    loginPage.style.display = "none";
+    loginPage.style.display =
+    "none";
 
-    userBox.innerText = username;
+    userBox.innerText =
+    username;
 }
 
 
+
+/* =====================
+LOGIN
+===================== */
 
 window.login = function(){
 
@@ -743,12 +856,52 @@ window.login = function(){
         username
     );
 
-    userBox.innerText = username;
+    userBox.innerText =
+    username;
 
-    loginPage.style.display = "none";
+    loginPage.style.display =
+    "none";
 };
 
 
+
+/* =====================
+LOGOUT
+===================== */
+
+window.logout = function(){
+
+    localStorage.removeItem(
+        "mk_username"
+    );
+
+    location.reload();
+};
+
+
+
+/* =====================
+CHANGE GROUP
+===================== */
+
+groupSelect.addEventListener(
+    "change",
+    ()=>{
+
+        localStorage.setItem(
+            "mk_room",
+            groupSelect.value
+        );
+
+        location.reload();
+    }
+);
+
+
+
+/* =====================
+SEND
+===================== */
 
 window.sendMessage = function(){
 
@@ -788,6 +941,10 @@ window.sendMessage = function(){
 };
 
 
+
+/* =====================
+RECEIVE
+===================== */
 
 onChildAdded(
 
@@ -856,6 +1013,10 @@ onChildAdded(
 
 
 
+/* =====================
+ENTER SEND
+===================== */
+
 input.addEventListener(
     "keydown",
     (e)=>{
@@ -869,6 +1030,10 @@ input.addEventListener(
 );
 
 
+
+/* =====================
+SAFE HTML
+===================== */
 
 function escapeHtml(text){
 
