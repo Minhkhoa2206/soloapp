@@ -1,15 +1,3 @@
-/* =========================
-NỘI BỘ CHAT v4.0
-TEXT + IMAGE BASE64
-KHÔNG CẦN STORAGE
-========================= */
-
-
-
-/* =========================
-FIREBASE CONFIG
-========================= */
-
 firebase.initializeApp({
 
     apiKey:
@@ -35,20 +23,10 @@ firebase.initializeApp({
 
 });
 
-
-
-/* =========================
-DATABASE
-========================= */
-
 const db =
 firebase.database();
 
 
-
-/* =========================
-ELEMENT
-========================= */
 
 const loginPage =
 document.getElementById("loginPage");
@@ -83,11 +61,13 @@ document.getElementById("groupTitle");
 const imageInput =
 document.getElementById("imageInput");
 
+const imageViewer =
+document.getElementById("imageViewer");
+
+const viewerImage =
+document.getElementById("viewerImage");
 
 
-/* =========================
-DATA
-========================= */
 
 let username =
 localStorage.getItem(
@@ -101,10 +81,6 @@ localStorage.getItem(
 || "NoiBo";
 
 
-
-/* =========================
-FIX USER ID RELOAD
-========================= */
 
 let userId =
 localStorage.getItem(
@@ -126,9 +102,7 @@ if(!userId){
 
 
 
-/* =========================
-INIT
-========================= */
+/* INIT */
 
 groupSelect.value =
 room;
@@ -152,9 +126,7 @@ if(username){
 
 
 
-/* =========================
-LOGIN
-========================= */
+/* LOGIN */
 
 loginBtn.addEventListener(
 
@@ -167,9 +139,7 @@ loginBtn.addEventListener(
 
         if(!name){
 
-            alert(
-                "Nhập tên 😭"
-            );
+            alert("Nhập tên 😭");
 
             return;
         }
@@ -192,9 +162,7 @@ loginBtn.addEventListener(
 
 
 
-/* =========================
-LOGOUT
-========================= */
+/* LOGOUT */
 
 logoutBtn.addEventListener(
 
@@ -217,9 +185,7 @@ logoutBtn.addEventListener(
 
 
 
-/* =========================
-CHANGE GROUP
-========================= */
+/* GROUP */
 
 groupSelect.addEventListener(
 
@@ -239,17 +205,13 @@ groupSelect.addEventListener(
 
 
 
-/* =========================
-SEND TEXT
-========================= */
+/* SEND TEXT */
 
 function sendMessage(){
 
     if(!username){
 
-        alert(
-            "Đăng nhập 😭"
-        );
+        alert("Đăng nhập 😭");
 
         return;
     }
@@ -283,10 +245,6 @@ function sendMessage(){
 
 
 
-/* =========================
-SEND BUTTON
-========================= */
-
 sendBtn.addEventListener(
     "click",
     sendMessage
@@ -294,19 +252,13 @@ sendBtn.addEventListener(
 
 
 
-/* =========================
-ENTER SEND
-========================= */
-
 messageInput.addEventListener(
 
     "keydown",
 
     (e)=>{
 
-        if(
-            e.key === "Enter"
-        ){
+        if(e.key === "Enter"){
 
             sendMessage();
         }
@@ -317,9 +269,7 @@ messageInput.addEventListener(
 
 
 
-/* =========================
-UPLOAD IMAGE BASE64
-========================= */
+/* IMAGE */
 
 imageInput.addEventListener(
 
@@ -334,27 +284,12 @@ imageInput.addEventListener(
 
 
 
-        if(!username){
-
-            alert(
-                "Đăng nhập 😭"
-            );
-
-            return;
-        }
-
-
-
-        /* LIMIT 300KB */
-
         if(
             file.size >
             1024 * 300
         ){
 
-            alert(
-                "Ảnh quá lớn 😭"
-            );
+            alert("Ảnh quá lớn 😭");
 
             return;
         }
@@ -370,12 +305,6 @@ imageInput.addEventListener(
 
         function(e){
 
-            const base64 =
-
-                e.target.result;
-
-
-
             db.ref(
                 "rooms/" + room
             ).push({
@@ -384,7 +313,7 @@ imageInput.addEventListener(
 
                 name:username,
 
-                image:base64,
+                image:e.target.result,
 
                 user:userId,
 
@@ -405,9 +334,7 @@ imageInput.addEventListener(
 
 
 
-/* =========================
-RECEIVE MESSAGE
-========================= */
+/* RECEIVE */
 
 db.ref(
     "rooms/" + room
@@ -423,21 +350,18 @@ db.ref(
 
 
         const row =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
 
         row.className =
+        "row " +
 
-            "row " +
-
-            (
-                data.user === userId
-                ? "me"
-                : ""
-            );
+        (
+            data.user === userId
+            ? "me"
+            : ""
+        );
 
 
 
@@ -463,9 +387,7 @@ db.ref(
                     ?
                     `
                     <div class="text">
-
                         ${safe(data.text)}
-
                     </div>
                     `
                     :
@@ -485,9 +407,8 @@ db.ref(
                         class="chat-image"
 
                         onclick="
-                            window.open(
-                                '${data.image}',
-                                '_blank'
+                            openImageViewer(
+                                '${data.image}'
                             )
                         "
                     >
@@ -513,81 +434,17 @@ db.ref(
 
 
 
-        messages.appendChild(
-            row
-        );
-
-
+        messages.appendChild(row);
 
         messages.scrollTop =
-
-            messages.scrollHeight;
+        messages.scrollHeight;
     }
 
 );
 
 
 
-/* =========================
-SAFE HTML
-========================= */
-
-function safe(text){
-
-    return String(text)
-
-    .replace(/&/g,"&amp;")
-
-    .replace(/</g,"&lt;")
-
-    .replace(/>/g,"&gt;")
-
-    .replace(/"/g,"&quot;");
-}
-
-
-
-/* =========================
-AUTO SCROLL
-========================= */
-
-function scrollBottom(){
-
-    messages.scrollTop =
-
-        messages.scrollHeight;
-}
-
-
-
-/* =========================
-RUNNING
-========================= */
-
-console.log(
-
-    "⚡ Nội Bộ Chat v4.0 Running"
-
-);
-
-
-/* =========================
-IMAGE VIEWER
-========================= */
-
-const imageViewer =
-
-document.getElementById(
-    "imageViewer"
-);
-
-const viewerImage =
-
-document.getElementById(
-    "viewerImage"
-);
-
-
+/* IMAGE VIEWER */
 
 window.openImageViewer =
 
@@ -612,3 +469,14 @@ imageViewer.addEventListener(
     }
 
 );
+
+
+
+function safe(text){
+
+    return String(text)
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;");
+}
