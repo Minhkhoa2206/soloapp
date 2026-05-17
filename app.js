@@ -52,12 +52,6 @@ document.getElementById("messages");
 const messageInput =
 document.getElementById("messageInput");
 
-const groupSelect =
-document.getElementById("groupSelect");
-
-const groupTitle =
-document.getElementById("groupTitle");
-
 const imageInput =
 document.getElementById("imageInput");
 
@@ -74,11 +68,10 @@ localStorage.getItem(
     "mk_username"
 );
 
-let room =
-localStorage.getItem(
-    "mk_room"
-)
-|| "NoiBo";
+
+
+const room =
+"WorkspaceGlobal";
 
 
 
@@ -103,17 +96,6 @@ if(!userId){
 
 
 /* INIT */
-
-groupSelect.value =
-room;
-
-groupTitle.innerHTML =
-"● " +
-groupSelect.options[
-groupSelect.selectedIndex
-].text;
-
-
 
 if(username){
 
@@ -185,27 +167,7 @@ logoutBtn.addEventListener(
 
 
 
-/* GROUP */
-
-groupSelect.addEventListener(
-
-    "change",
-
-    ()=>{
-
-        localStorage.setItem(
-            "mk_room",
-            groupSelect.value
-        );
-
-        location.reload();
-    }
-
-);
-
-
-
-/* SEND TEXT */
+/* SEND */
 
 function sendMessage(){
 
